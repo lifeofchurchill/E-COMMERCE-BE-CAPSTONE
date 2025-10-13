@@ -13,8 +13,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits = 10, decimal_places = 2) #used a decimal field since some prices have cents
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='product_images/', null=True, blank=True) #image field to upload product images
+    image = models.URLField(max_length=500,null=True, blank=True) #URLField to store image URLs
     created_by = models.ForeignKey(User, related_name='products', on_delete = models.CASCADE)
-    stock_quantity = models.PositiveIntegerField(default=1) #quantity field to track number of items in cart
+    stock_quantity = models.PositiveIntegerField(default=0) #quantity field to track number of items in cart
 
+    def __str__(self):
+        return self.name
 
