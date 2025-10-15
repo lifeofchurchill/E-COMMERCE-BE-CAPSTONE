@@ -1,5 +1,22 @@
 from rest_framework import serializers
 from .models import Category, Product
+from django.contrib.auth.models import User
+
+# Serializer for the User model to handle user registration
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True) #write only field for security can only send pass when creating cant recieve it when viewing
+
+    class Meta:
+        model = User
+        fields = [ 'username', 'email', 'password']
+    
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            password=validated_data['password']
+        )
+        return user
 
 class CategorySerializer(serializers.ModelSerializer): #serializer for the Category model
     class Meta:
