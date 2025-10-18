@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .serializers import CategorySerializer, ProductSerializer, UserSerializer
 from .models import Category, Product
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
@@ -27,3 +27,4 @@ class ProductViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
