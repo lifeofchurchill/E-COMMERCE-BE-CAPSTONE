@@ -24,7 +24,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user) #automatically set the created_by field to the current user when a product is created
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet): #viewset to handle the User model
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
